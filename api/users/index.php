@@ -14,7 +14,8 @@
     $dbConnection = $databaseService->getConnection();
 
     // Get JWT token from header authorization
-    $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+    $requestHeaders = apache_request_headers();
+    $authHeader = isset($requestHeaders['Authorization']) ? $requestHeaders['Authorization'] : (isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '');
     $arr = explode(" ", $authHeader);
     $jwt = $arr[1];
 
